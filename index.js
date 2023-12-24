@@ -38,19 +38,18 @@ async function run() {
     console.log(result);
     res.send(result);
   });
-  //   update a task
+  //   update a task status
   app.patch("/tasks/update/:id", async (req, res) => {
     const id = req.params.id;
     const status = req.body;
     const data = {
       $set: status,
     };
-
     const filter = { _id: id };
     const result = await Task.updateOne(filter, data);
     res.send(result);
   });
-  // delete a blog
+  // delete a task
   app.delete("/tasks/delete/:id", async (req, res) => {
     const id = req.params.id;
     const filter = { _id: id };
