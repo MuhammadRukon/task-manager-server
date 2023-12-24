@@ -6,7 +6,7 @@ const Task = require("./models/task");
 require("dotenv").config();
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://taskmanager-scic-8.netlify.app"],
     credentials: true,
   })
 );
@@ -24,6 +24,10 @@ async function run() {
   console.log(`connected to db : ${process.env.DB_NAME}`);
 
   //get users tasks
+  app.get("/all-tasks", async (req, res) => {
+    const result = await Task.find();
+    res.send(result);
+  });
   app.get("/tasks", async (req, res) => {
     const email = req.query.user;
     const status = req.query.status;
